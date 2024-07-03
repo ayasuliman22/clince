@@ -2,6 +2,7 @@
 class docModel
 {
     private $db;
+    private $table = "doctors" ;
 
 
     /**
@@ -18,7 +19,7 @@ class docModel
     public function getDoctor($id)
     {
 
-        $doc = $this->db->where("id", $id)->get("doctors");
+        $doc = $this->db->where("id", $id)->get($this->table);
 
         return $doc;
     }
@@ -27,6 +28,10 @@ class docModel
         $doc = $this->db->get("doctors");
         
         return $doc;
+    }
+
+    public function addDoc ($data) {
+        return $this->db->insert($this->table,$data);
     }
 
 }
