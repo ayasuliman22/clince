@@ -22,7 +22,11 @@ class docModel
 
         return $doc;
     }
-
-    public function getAll()
+    
+    public function getAll() {
+        $doc = $this->db->get("doctors");
+        
+        return $doc;
+    }
 
 }
