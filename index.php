@@ -1,5 +1,5 @@
 <?php
-define('BASE_PATH', "/30_project/clince/");
+define('BASE_PATH', "/clince/");
 
 
 spl_autoload_register(function ($classes){
@@ -15,13 +15,16 @@ $db = new MysqliDb(
     $config['password'],
     $config['dbname']
 ) ;
+$patcon=new PatController ($db);
 $request = $_SERVER["REQUEST_URI"];
-
-
-
-
+// var_dump($request);
 switch ($request) :
     case BASE_PATH :
-
+        echo "d";
     break ;
+    case BASE_PATH . 'pat/addpat':
+        $patcon->addpat();
+        echo "dd";
+        break;
+        
 endswitch ;
