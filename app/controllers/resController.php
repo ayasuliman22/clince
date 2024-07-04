@@ -1,17 +1,54 @@
-<?php 
-require __DIR__ . "/../models/resModel.php" ;
-class resController {
+<?php
+require __DIR__ . "/../models/resModel.php";
+require __DIR__ . "/../models/dateModel.php";
+class resController
+{
+    private $res;
+    private $date;
 
-    private $db ;
     public function __construct($db)
     {
-        $this->db = new resModel($db) ;
+        $this->res = new resModel($db);
+        $this->date = new dateModel($db);
     }
- 
-    public function add ($id) {
-        
+
+    private function jsonR($data)
+    {
+        header("Content-Type: application/json");
+        echo json_encode($data);
     }
-    public function show ($id) {
-        
+
+    public function add($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") :
+            /**
+             * I need get date by id from Anas
+             * From dateModel
+             */
+            $date = $this->date->get($id);
+            if ($date) {
+                $data = [
+                    "id_data" => $id,
+                    "result" => $_POST["result"]
+                ];
+                if ($this->res->insert($data)) {
+                    $this->jsonR(["message" => "Done"]);
+                } else {
+                    $this->jsonR(["message" => "ERROR"]);
+                }
+            } else {
+                $this->jsonR(["message" => "The date is not exist"]);
+            }
+        endif;
+    }
+    public function show($id)
+    {
+        $date = $this->date->get($id);
+        if ($date) {
+            $data = $this->res->get($id);
+            $this->jsonR($data);
+        } else {
+            $this->jsonR(["message" => "The date is not exist"]);
+        }
     }
 }
