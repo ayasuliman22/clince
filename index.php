@@ -24,7 +24,6 @@ $doc = new docController($db);
 $spe = new specController($db);
 $feedb = new feedbController($db);
 $date = new dateController($db);
-$admin = new adminController($db);
 
 
 switch ($request):
@@ -40,6 +39,7 @@ switch ($request):
     case BASE_PATH . 'pat/search':
         $patcon->searchpatrs($_POST['name']);
         break;
+
     case BASE_PATH . 'spec/addspec':
         $spe->addspec();
         break;
@@ -47,17 +47,8 @@ switch ($request):
         $feedb->addfeedb();
         break;
     case BASE_PATH . "doc/add":
-        $doc->addDoc();        
-    break ;
-    case BASE_PATH . 'admin/login':
-        $admin->login();
-        break;
-endswitch ;
 
-if(!empty(($_GET["id"]))){
-    switch ($request) :
-    case BASE_PATH .'pat/one?id='.$_GET["id"]:
-        $patcon -> onepat($_GET["id"]);
+        $doc->addDoc();
         break;
 
 endswitch;
@@ -77,6 +68,7 @@ if (!empty(($_GET["id"]))) {
     switch ($request):
         case BASE_PATH . 'feedb/feedbdoc?id_doctoe=' . $_GET["id_doctoe"]:
             $feedb->getfeedbyIdDoc($_GET["id_doctoe"]);
+            // echo "l";
             break;
     endswitch;
 }
