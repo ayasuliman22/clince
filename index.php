@@ -16,17 +16,40 @@ $db = new MysqliDb(
     $config['dbname']
 ) ;
 $patcon=new PatController ($db);
-$request = $_SERVER["REQUEST_URI"];
-
 $res = new resController($db) ;
 $doc = new docController($db) ;
-
-
+$spe=new specController($db);
+$feedb=new feedbController($db);
+$request = $_SERVER["REQUEST_URI"];
+// var_dump($request);
 switch ($request) :
     case BASE_PATH :
         echo "d";
     break ;
+    case BASE_PATH . 'pat/addpat':
+        $patcon->addpat();
+        break;
+    case BASE_PATH .'pat/showall'  :
+        $patcon -> showpats();
+        break;
+    case BASE_PATH .'pat/search' :
+        $patcon -> searchpatrs($_POST['name']);
+        break;
+        case BASE_PATH .'pat/one?id='.$_GET["id"]:
+            $patcon -> onepat($_GET["id"]);
+            break;
+        case BASE_PATH .'spec/addspec':
+            $spe->addspec();
+            break;
+          case BASE_PATH .'feedb/add':
+            $feedb->addfeedb();
+            break;
+    case BASE_PATH .'feedb/feedbdoc?id_doctoe='.$_GET["id_doctoe"]:
+                $feedb->getfeedbyIdDoc($_GET["id_doctoe"]);
+                // echo "l";
+                break;
     case BASE_PATH . "doc/add" :
+
         $doc -> addDoc() ;
     break ;
     case BASE_PATH . "res/add?id=" . $_GET["id"] :

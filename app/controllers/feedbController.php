@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/../models/feedbModel.php';
+require_once __DIR__.'/../models/feedbModel.php';
 class feedbController {
     private $model;
   
@@ -26,12 +26,27 @@ class feedbController {
                 $a = ['message' => 'added successfully'];
                 echo json_encode($a);
             } else {
-                echo "Failed to add user.";
+                echo "Failed to add feedback.";
             }
         }
       
     }
     public function getfeedbyIdDoc($id_doc){
-        $feed=$this->model->getfeedByIdDoc($id_doc);      
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header("content-type: application/json");
+        $sum=0;
+        $feed=$this->model->getfeedByIdDoc($id_doc); 
+foreach($feed as $k){
+    foreach($k as $d=>$f){
+             $sum +=$f;}}
+             $count=count($feed);
+             $av=$sum/$count;
+echo json_encode($av);
+
+            //  $a = ['message' => 'added successfully'];
+            // $av=$sum/$count;
+
+            //  echo json_encode($av);
+    }
     }
 }
