@@ -1,5 +1,5 @@
 <?php
-define('BASE_PATH', "/clince/");
+define('BASE_PATH', "/30_project/clince/");
 
 
 spl_autoload_register(function ($classes){
