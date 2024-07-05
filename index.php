@@ -24,6 +24,7 @@ $doc = new docController($db);
 $spe = new specController($db);
 $feedb = new feedbController($db);
 $date = new dateController($db);
+$admin = new adminController($db);
 
 
 switch ($request):
