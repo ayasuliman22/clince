@@ -49,7 +49,12 @@ switch ($request) :
     case BASE_PATH . "doc/add" :
 
         $doc -> addDoc() ;
+        
     break ;
+    case BASE_PATH . 'admin/login':
+        $admin->login();
+        break;
+
  
 endswitch ;
 if(!empty(($_GET["id"]))){
