@@ -19,11 +19,12 @@ $request = $_SERVER["REQUEST_URI"];
 
 $res = new resController($db) ;
 $doc = new docController($db) ;
+$date = new dateController($db) ;
 
 
 switch ($request) :
     case BASE_PATH :
-
+        $date -> todaysDates() ;
     break ;
     case BASE_PATH . "doc/add" :
         $doc -> addDoc() ;

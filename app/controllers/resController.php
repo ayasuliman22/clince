@@ -1,15 +1,22 @@
 <?php
 require __DIR__ . "/../models/resModel.php";
-require __DIR__ . "/../models/dateModel.php";
+require_once __DIR__ . "/../models/dateModel.php" ;
+require_once __DIR__ . "/../models/patModel.php" ;
+require_once __DIR__ . "/../models/docModel.php" ;
+
 class resController
 {
     private $res;
     private $date;
+    private $doctor;
+    private $pat;
 
     public function __construct($db)
     {
         $this->res = new resModel($db);
         $this->date = new dateModel($db);
+        $this->doctor = new docModel($db);
+        $this->pat = new patModel($db);
     }
 
     private function jsonR($data)
@@ -28,7 +35,7 @@ class resController
             $date = $this->date->get($id);
             if ($date) {
                 $data = [
-                    "id_data" => $id,
+                    "id_date" => $id,
                     "result" => $_POST["result"]
                 ];
                 if ($this->res->insert($data)) {
@@ -45,8 +52,19 @@ class resController
     {
         $date = $this->date->get($id);
         if ($date) {
-            $data = $this->res->get($id);
-            $this->jsonR($data);
+            $res = $this->res->get($id);
+            if ($res) {
+                $data = [
+                    "id" => $res["id"] ,
+                    "id_date" => $res["id_date"] ,
+                    "id_doctor" =>  $this->doctor->getDoctor($date["id_doctor"])['name'],
+                    "id_patent" =>  $this->pat->getPatById($date["id_patuent"])['name'],
+                    "result" => $res["result"]
+                ];
+                $this->jsonR($data);
+            } else {
+                $this->jsonR(["message" => "The result is not exist"]);
+            }
         } else {
             $this->jsonR(["message" => "The date is not exist"]);
         }
