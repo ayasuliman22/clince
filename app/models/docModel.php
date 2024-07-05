@@ -19,7 +19,7 @@ class docModel
     public function getDoctor($id)
     {
 
-        $doc = $this->db->where("id", $id)->get($this->table);
+        $doc = $this->db->where("id", $id)->getOne($this->table);
 
         return $doc;
     }
