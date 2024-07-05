@@ -15,16 +15,20 @@ $db = new MysqliDb(
     $config['password'],
     $config['dbname']
 ) ;
+
+$request = $_SERVER["REQUEST_URI"];
+
 $patcon=new PatController ($db);
 $res = new resController($db) ;
 $doc = new docController($db) ;
 $spe=new specController($db);
 $feedb=new feedbController($db);
-$request = $_SERVER["REQUEST_URI"];
-// var_dump($request);
+$date = new dateController($db) ;
+
+
 switch ($request) :
     case BASE_PATH :
-        echo "d";
+        $date -> todaysDates() ;
     break ;
     case BASE_PATH . 'pat/addpat':
         $patcon->addpat();
