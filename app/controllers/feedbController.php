@@ -41,7 +41,8 @@ foreach($feed as $k){
              $sum +=$f;}}
              $count=count($feed);
              $av=$sum/$count;
-echo json_encode($av);
+             $m=["feedb:",$av];
+echo json_encode($m);
 
             //  $a = ['message' => 'added successfully'];
             // $av=$sum/$count;
