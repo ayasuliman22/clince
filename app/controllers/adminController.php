@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . "/../models/adminModel.php";
+
+require_once __DIR__ . "/../models/adminModel.php";
 class adminController
 {
     private $admin;
