@@ -10,7 +10,7 @@ class resController
     {
         $this->res = new resModel($db);
         $this->date = new dateModel($db);
-    }
+    }kk
 
     private function jsonR($data)
     {
