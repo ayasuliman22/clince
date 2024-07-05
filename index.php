@@ -1,5 +1,5 @@
 <?php
-define('BASE_PATH', "/30_project/clince/");
+define('BASE_PATH', "/clince/");
 
 
 spl_autoload_register(function ($classes){
@@ -19,11 +19,12 @@ $request = $_SERVER["REQUEST_URI"];
 
 $res = new resController($db) ;
 $doc = new docController($db) ;
+$date = new dateController($db) ;
 
 
 switch ($request) :
     case BASE_PATH :
-
+        $date -> todaysDates() ;
     break ;
     case BASE_PATH . "doc/add" :
         $doc -> addDoc() ;

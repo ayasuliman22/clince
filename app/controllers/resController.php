@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . "/../models/resModel.php";
-require __DIR__ . "/../models/dateModel.php";
+require_once __DIR__ . "/../models/dateModel.php" ;
 class resController
 {
     private $res;
@@ -46,7 +46,11 @@ class resController
         $date = $this->date->get($id);
         if ($date) {
             $data = $this->res->get($id);
-            $this->jsonR($data);
+            if ($data) {
+                $this->jsonR($data);
+            } else {
+                $this->jsonR(["message" => "The result is not exist"]);
+            }
         } else {
             $this->jsonR(["message" => "The date is not exist"]);
         }
