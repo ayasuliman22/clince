@@ -1,11 +1,13 @@
 <?php
-require_once __DIR__.'/../models/feedbModel.php';
-class feedbController {
+require_once __DIR__ . '/../models/feedbModel.php';
+class feedbController
+{
     private $model;
-  
 
-    public function __construct($db) {
-      
+
+    public function __construct($db)
+    {
+
         $this->model = new feedbModel($db);
     }
     public function addfeedb()
@@ -13,11 +15,11 @@ class feedbController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_doc = $_POST['id_doctoe'];
             $id_pat = $_POST['id_patuent'];
-            $feedback=$_POST['feedback'];
+            $feedback = $_POST['feedback'];
             $data = [
                 'id_doctoe' => $id_doc,
                 'id_patuent' => $id_pat,
-                'feedback' => $feedback ,
+                'feedback' => $feedback,
             ];
 
             if ($this->model->addfeedback($data)) {
@@ -29,25 +31,27 @@ class feedbController {
                 echo "Failed to add feedback.";
             }
         }
-      
     }
-    public function getfeedbyIdDoc($id_doc){
+    public function getfeedbyIdDoc($id_doc)
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("content-type: application/json");
-        $sum=0;
-        $feed=$this->model->getfeedByIdDoc($id_doc); 
-foreach($feed as $k){
-    foreach($k as $d=>$f){
-             $sum +=$f;}}
-             $count=count($feed);
-             $av=$sum/$count;
-             $m=["feedb:",$av];
-echo json_encode($m);
+            $sum = 0;
+            $feed = $this->model->getfeedByIdDoc($id_doc);
+            foreach ($feed as $k) {
+                foreach ($k as $d => $f) {
+                    $sum += $f;
+                }
+            }
+            $count = count($feed);
+            $av = $sum / $count;
+            $m = ["feedb:", $av];
+            echo json_encode($m);
 
             //  $a = ['message' => 'added successfully'];
             // $av=$sum/$count;
 
             //  echo json_encode($av);
-    }
+        }
     }
 }

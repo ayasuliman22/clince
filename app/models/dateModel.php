@@ -16,8 +16,20 @@ class dateModel {
         return $this->db->get($this->table);
     }
     public function getDatesByDate ($date) {
-        return $this->db->where("date" , $date)->get($this->table);
+        return $this->db->where("date" , $date )->get($this->table);
     }
+    public function ddToday ($id , $date) {
+        return $this->db->where("id_doctor" , $id )->where("date" , $date)->get($this->table);
+    }
+
+    public function getTime() {
+        return $this->db-> getOne($this->table);
+    }
+
+    public function setDate($data) {
+        return $this->db->insert($this->table , $data);
+    }
+
 
 
 }

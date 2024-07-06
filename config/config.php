@@ -5,5 +5,5 @@ return [
     "host" => "localhost",
     "username" => "root" ,
     "password" => "" ,
-    "dbname" => "clince" 
+    "dbname" => "clinic" 
 ] ;
