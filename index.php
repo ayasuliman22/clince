@@ -24,8 +24,7 @@ $doc = new docController($db);
 $spe = new specController($db);
 $feedb = new feedbController($db);
 $date = new dateController($db);
-$admin = new adminController($db);
-
+$admin=new adminController($db);
 
 switch ($request):
     case BASE_PATH:
@@ -54,13 +53,6 @@ switch ($request):
         break;
 endswitch ;
 
-if(!empty(($_GET["id"]))){
-    switch ($request) :
-    case BASE_PATH .'pat/one?id='.$_GET["id"]:
-        $patcon -> onepat($_GET["id"]);
-        break;
-
-endswitch;
 if (!empty(($_GET["id"]))) {
     switch ($request):
         case BASE_PATH . 'pat/one?id=' . $_GET["id"]:
