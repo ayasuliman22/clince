@@ -43,6 +43,7 @@ class dateController
             endforeach;
             $this->jsonR($data);
         } else {
+
             $this->jsonR(["message" => "there are no dates for today"]);
         }
     }

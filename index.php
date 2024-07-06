@@ -24,6 +24,7 @@ $doc = new docController($db);
 $spe = new specController($db);
 $feedb = new feedbController($db);
 $date = new dateController($db);
+$admin=new adminController($db);
 
 
 switch ($request):
@@ -50,7 +51,6 @@ switch ($request):
         $feedb->addfeedb();
         break;
     case BASE_PATH . "doc/add":
-
         $doc->addDoc();
         break;
 
@@ -74,5 +74,8 @@ if (!empty(($_GET["id"]))) {
             // echo "l";
             break;
     endswitch;
+
+}
+
 }
 
