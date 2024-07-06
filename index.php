@@ -1,5 +1,5 @@
 <?php
-define('BASE_PATH', "/clince/");
+define('BASE_PATH', "/30_project/clince/");
 
 
 spl_autoload_register(function ($classes) {
@@ -26,6 +26,7 @@ $feedb = new feedbController($db);
 $date = new dateController($db);
 $admin=new adminController($db);
 
+
 switch ($request):
     case BASE_PATH:
         $date->todaysDates();
@@ -33,12 +34,16 @@ switch ($request):
     case BASE_PATH . 'pat/addpat':
         $patcon->addpat();
         break;
+    case BASE_PATH . 'date/add':
+        $date->setDate();
+        break;
     case BASE_PATH . 'pat/showall':
         $patcon->showpats();
         break;
     case BASE_PATH . 'pat/search':
         $patcon->searchpatrs($_POST['name']);
         break;
+
     case BASE_PATH . 'spec/addspec':
         $spe->addspec();
         break;
@@ -46,13 +51,10 @@ switch ($request):
         $feedb->addfeedb();
         break;
     case BASE_PATH . "doc/add":
-        $doc->addDoc();        
-    break ;
-    case BASE_PATH . 'admin/login':
-        $admin->login();
+        $doc->addDoc();
         break;
-endswitch ;
 
+endswitch;
 if (!empty(($_GET["id"]))) {
     switch ($request):
         case BASE_PATH . 'pat/one?id=' . $_GET["id"]:
@@ -69,6 +71,11 @@ if (!empty(($_GET["id"]))) {
     switch ($request):
         case BASE_PATH . 'feedb/feedbdoc?id_doctoe=' . $_GET["id_doctoe"]:
             $feedb->getfeedbyIdDoc($_GET["id_doctoe"]);
+            // echo "l";
             break;
     endswitch;
+
 }
+
+}
+
