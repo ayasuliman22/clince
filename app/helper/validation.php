@@ -9,6 +9,11 @@ trait validation
         $result = preg_match($pattern, trim($username));
         return  $result;
     }
+function validate_phone($phone) : bool {
+  
+        $result=preg_match('/^\+963[0-9]+$/',$phone)&&strlen($phone)==13; 
+         return  $result;
+    }
 
     function validate_email($email): bool
     {

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/../models/patModel.php';
-// require __DIR__ . "/../helper/validation.php";
+require_once __DIR__ . "/../helper/validation.php";
 class PatController {
 
     private $model;
@@ -9,8 +9,12 @@ class PatController {
       
         $this->model = new patModel($db);
     }
-    // use validation;
-
+    use validation;
+    private function jsonR($data)
+    {
+        header("Content-Type: application/json");
+        echo json_encode($data);
+    }
     public function addpat()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,50 +26,45 @@ class PatController {
                 'number' => $number,
                 'date' => $date,
             ];
-            // if ($this->validate_username($data["name"])) {
+            if ($this->validate_username($name)&&$this->validate_date($date)&& 
+            $this->validate_phone($number)) {
+                $numps=[];
+                // global $id;
+                $pat=$this->model->getPatsnum();
+                foreach ($pat as $k) {
+                     foreach ($k as $d => $f) {
+                    array_push($numps,$f);
+                     }}
+                     if(!in_array($number,$numps)){
             if ($this->model->addpat($data)) {
-                // header('Location:' . BASE_PATH);
-                header("content-type: application/json");
                 $a = ['message' => 'added successfully'];
-                echo json_encode($a);
+      
             } else {
                 $a=['message'=>'Failed to add pat'];
-                echo json_encode($a);
+              
+            }}
+            else{
+                $a=['message'=>'pat already exist'];
             }
+          
         }
-        // else{
-        //   $a=['message '=>'uncorrect data'];
-        //   echo json_encode($a);
-
-        //  }
-
-    // }
-}
-
-    public function showpats() {
-        header("content-type: application/json");
-
-        $pats = $this->model->getpats();
-        // include '../views/user_list.php';
-        echo json_encode($pats); 
-
-
+    else{$a=['message'=>'uncorrect data'];}
+ }
+ $this->jsonR($a);
     }
-    public function searchpatrs($n
-        
-    ) { if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    public function showpats() {
+        $pats = $this->model->getpats();
+        $this->jsonR($pats);
+    }
+    public function searchpatrs($n)
+     { if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        // $s = [
-            // 'name' => $name,];
         $pats = $this->model->searchpats($n);
-        // include '../views/user_list.php';
-        header("content-type: application/json");
-
-        echo json_encode($pats); 
+        $this->jsonR($pats);
     }}
     public function onepat($id){
         
         $pat=$this->model->getpatById($id);
-        header("content-type: application/json");
-        echo json_encode($pat); 
-    }}
+       $this->jsonR($pat); 
+    }
+}

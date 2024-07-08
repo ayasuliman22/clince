@@ -1,5 +1,5 @@
 <?php
-define('BASE_PATH', "/30_project/clince/");
+define('BASE_PATH', "/clince/");
 
 
 spl_autoload_register(function ($classes) {
@@ -43,6 +43,9 @@ switch ($request):
     case BASE_PATH . 'pat/search':
         $patcon->searchpatrs($_POST['name']);
         break;
+case BASE_PATH .'admin/login':
+    $admin->login();
+    break;
 
     case BASE_PATH . 'spec/addspec':
         $spe->addspec();
@@ -53,7 +56,12 @@ switch ($request):
     case BASE_PATH . "doc/add":
         $doc->addDoc();
         break;
-
+case BASE_PATH ."doc/showall":
+    $doc->showdoctors();
+    break;
+    case BASE_PATH ."spec/showall":
+        $spe->showallspec();
+        break;
 endswitch;
 if (!empty(($_GET["id"]))) {
     switch ($request):
@@ -76,6 +84,3 @@ if (!empty(($_GET["id"]))) {
     endswitch;
 
 }
-
-}
-

@@ -7,6 +7,12 @@ class specController {
     public function __construct($db) {
       
         $this->model = new specModel($db);}
+        
+        private function jsonR($data)
+        {
+            header("Content-Type: application/json");
+            echo json_encode($data);
+        }
         public function addspec()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,15 +21,19 @@ class specController {
                 'name'=>$name,
             ];
             if ($this->model->addspec($data)) {
-                // header('Location:' . BASE_PATH);
-                header("content-type: application/json");
+                // header("content-type: application/json");
                 $a = ['message' => 'added successfully'];
-                echo json_encode($a);
+           
             } else {
                 $a=['message'=>'Failed to add spec'];
-                echo json_encode($a);
+            
             }
+            $this->jsonR($a);  
         }
+    }
+    public function showallspec(){
+         $sp=$this->model->showspec();
+         $this->jsonR($sp);
     }
     }
    
