@@ -63,10 +63,11 @@ class dateController
             if ($this->validate_date_table($data)) {
                 $dateByDoctor = $this->date->ddToday($data["id_doctor"], $data["date"]);
                 if ($dateByDoctor) {
-                    if ($this->isDoctorHaveTime($data["time"], $dateByDoctor)) {
+                    if (!$this->isDoctorHaveTime($data["time"], $dateByDoctor)) {
+                        $this->jsonR(["message" => "you can't set date at this time"]); 
                     } else {
                         if ($this->date->setDate($data)) {
-                            echo 'dfd';
+                            
                             $this->jsonR(["message" => "Done"]);
                         } else {
                             $this->jsonR(["message" => "Done"]);

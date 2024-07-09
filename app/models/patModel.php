@@ -12,6 +12,9 @@ class patModel {
     public function getPats() {
         return $this->db->get('patuents');
     }
+    public function getPatsnum() {
+        return $this->db->get('patuents',null,'number');
+    }
     public function addPat($data) {
         return $this->db->insert('patuents', $data);
     }

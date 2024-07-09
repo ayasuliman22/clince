@@ -8,4 +8,7 @@ class specModel {
     public function addspec($data) {
         return $this->db->insert('specialties', $data);
     }
+    public function showspec(){
+        return $this->db->get("specialties");
+    }
 }

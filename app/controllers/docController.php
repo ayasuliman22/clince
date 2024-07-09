@@ -19,6 +19,15 @@ class docController
         echo json_encode($data);
     }
 
+    public function showdoctors() {
+    
+
+        $doctors = $this->docModel->getAll();
+        
+    $this->jsonR($doctors);
+
+
+    }
     public function addDoc()
     {
         $data = [
